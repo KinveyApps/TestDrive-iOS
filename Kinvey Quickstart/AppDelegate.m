@@ -3,7 +3,7 @@
 //  Kinvey Quickstart
 //
 //  Created by Michael Katz on 11/12/12.
-//  Copyright (c) 2012 Kinvey. All rights reserved.
+//  Copyright (c) 2012-2013 Kinvey. All rights reserved.
 //
 
 #import "AppDelegate.h"

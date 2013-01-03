@@ -3,65 +3,82 @@
 //  Kinvey Quickstart
 //
 //  Created by Michael Katz on 11/12/12.
-//  Copyright (c) 2012 Kinvey. All rights reserved.
+//  Copyright (c) 2012-2013 Kinvey. All rights reserved.
 //
 
 #import "ViewController.h"
 #import "TestObject.h"
 
-@interface ViewController ()
+#define CREATE_NEW_ENTITY_ALERT_VIEW 100
 
+@interface ViewController ()
+@property (nonatomic, strong) NSArray* objects;
 @end
 
 @implementation ViewController
 
-- (IBAction)save:(id)sender
+- (IBAction)add:(id)sender
 {
-    
-    // Define an instance of our test object
-    TestObject *testObject = [[TestObject alloc] init];
-    
-    // Assign it the unique ID of 12345 (If this value is nil, Kinvey will assign a unique ID)
-    // but we'll be loading by id later, so we're keeping it simple for now
-    testObject.objectId = @"12345";
-    
-    // This is the data we'll save
-    testObject.name = @"My first data!";
-    
-    // Get a reference to a backend collection called "testObjects", which is filled with
-    // instances of TestObject
-    KCSCollection *testObjects = [KCSCollection collectionFromString:@"testObjects" ofClass:[TestObject class]];
-    
-    // Create a data store connected to the collection, in order to save and load TestObjects
-    KCSAppdataStore *store = [KCSAppdataStore storeWithCollection:testObjects options:nil];
-    
-    // Save our instance to the store
-    [store saveObject:testObject withCompletionBlock:^(NSArray *objectsOrNil, NSError *errorOrNil) {
-        // Right now just pop-up an alert about what we got back from Kinvey during
-        // the save.  Normally you would want to implement more code here
-        if (errorOrNil == nil && objectsOrNil != nil) {
-            //save is successful!
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Save worked!"
-                                                            message:[NSString stringWithFormat:@"Saved: '%@'",[objectsOrNil[0] name]]
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"Ok"
-                                                  otherButtonTitles:nil];
-            
-            [alert show];
-            
-        } else {
-            //save failed
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Save failed"
-                                                            message:[errorOrNil localizedDescription]
-                                                           delegate:self
-                                                  cancelButtonTitle:@"Ok"
-                                                  otherButtonTitles:nil];
-            
-            [alert show];
-            
-        }
-    } withProgressBlock:nil];
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Create a New Entity"
+                                                    message:@"Enter a title for the new entity"
+                                                   delegate:self
+                                          cancelButtonTitle:@"Cancel"
+                                          otherButtonTitles:@"Save", nil];
+    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    alert.tag = CREATE_NEW_ENTITY_ALERT_VIEW;
+    [alert show];
 }
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag == CREATE_NEW_ENTITY_ALERT_VIEW) {
+        if (buttonIndex == alertView.firstOtherButtonIndex) {
+            // Define an instance of our test object
+            TestObject *testObject = [[TestObject alloc] init];
+            
+            // This is the data we'll save
+            testObject.name = [[alertView textFieldAtIndex:0] text];
+            
+            // Get a reference to a backend collection called "testObjects", which is filled with
+            // instances of TestObject
+            KCSCollection *testObjects = [KCSCollection collectionFromString:@"testObjects" ofClass:[TestObject class]];
+            
+            // Create a data store connected to the collection, in order to save and load TestObjects
+            KCSAppdataStore *store = [KCSAppdataStore storeWithCollection:testObjects options:nil];
+            
+            // Save our instance to the store
+            [store saveObject:testObject withCompletionBlock:^(NSArray *objectsOrNil, NSError *errorOrNil) {
+                // Right now just pop-up an alert about what we got back from Kinvey during
+                // the save.  Normally you would want to implement more code here
+                if (errorOrNil == nil && objectsOrNil != nil) {
+                    //save is successful!
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Save worked!"
+                                                                    message:[NSString stringWithFormat:@"Saved: '%@'",[objectsOrNil[0] name]]
+                                                                   delegate:nil
+                                                          cancelButtonTitle:@"Ok"
+                                                          otherButtonTitles:nil];
+                    
+                    [alert show];
+                    
+                    self.objects = [@[testObject] arrayByAddingObjectsFromArray:_objects];
+                    [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+                } else {
+                    //save failed
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Save failed"
+                                                                    message:[errorOrNil localizedDescription]
+                                                                   delegate:self
+                                                          cancelButtonTitle:@"Ok"
+                                                          otherButtonTitles:nil];
+                    
+                    [alert show];
+                    
+                }
+            } withProgressBlock:nil];
+
+        }
+    }
+}
+
 
 - (IBAction)load:(id)sender
 {
@@ -72,22 +89,20 @@
     // Create a data store connected to the collection, in order to save and load TestObjects
     KCSAppdataStore *store = [KCSAppdataStore storeWithCollection:testObjects options:nil];
     
+    KCSQuery* query = [KCSQuery query];
+    [query addSortModifier:[[KCSQuerySortModifier alloc] initWithField:KCSMetadataFieldLastModifiedTime inDirection:kKCSDescending]];
+    
     // This will load the saved 12345 item from the backend
-    [store loadObjectWithID:@"12345" withCompletionBlock:^(NSArray *objectsOrNil, NSError *errorOrNil) {
+    [store queryWithQuery:query withCompletionBlock:^(NSArray *objectsOrNil, NSError *errorOrNil) {
+        [sender endRefreshing];
         // Right now just pop-up an alert about what we got back from Kinvey during
         // the load.  Normally you would want to implement more code here
         if (errorOrNil == nil && objectsOrNil != nil) {
-            //save is successful!
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Load worked!"
-                                                            message:[NSString stringWithFormat:@"Loaded: '%@'",[objectsOrNil[0] name]]
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"Ok"
-                                                  otherButtonTitles:nil];
-            
-            [alert show];
-            
+            //load is successful!
+            _objects = objectsOrNil;
+            [self.tableView reloadData];
         } else {
-            //save failed
+            //load failed
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Load failed"
                                                             message:[errorOrNil localizedDescription]
                                                            delegate:self
@@ -99,5 +114,96 @@
         }
 
     } withProgressBlock:nil];
+}
+
+#pragma mark - View Controller
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    _objects = @[];
+    [self.refreshControl addTarget:self
+                            action:@selector(load:)
+                  forControlEvents:UIControlEventValueChanged];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self load:nil];
+}
+
+
+#pragma mark - Table View Stuff
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return _objects.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"aCell"];
+    cell.textLabel.text = [_objects[indexPath.row] name];
+    return cell;
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return UITableViewCellEditingStyleDelete;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        TestObject* objToDelete = [_objects objectAtIndex:indexPath.row];
+        NSMutableArray* newObjects  = [_objects mutableCopy];
+        [newObjects removeObjectAtIndex:indexPath.row];
+        self.objects = newObjects;
+        
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        
+        // Get a reference to a backend collection called "testObjects", which is filled with
+        // instances of TestObject
+        KCSCollection *testObjects = [KCSCollection collectionFromString:@"testObjects" ofClass:[TestObject class]];
+        
+        // Create a data store connected to the collection, in order to save and load TestObjects
+        KCSAppdataStore *store = [KCSAppdataStore storeWithCollection:testObjects options:nil];
+        
+        // Remove our instance from the store
+        [store removeObject:objToDelete withCompletionBlock:^(NSArray *objectsOrNil, NSError *errorOrNil) {
+            if (errorOrNil == nil && objectsOrNil != nil) {
+                //delete is successful!
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Delete successful!"
+                                                                message:nil
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"Ok"
+                                                      otherButtonTitles:nil];
+                
+                [alert show];
+            } else {
+                //delete failed
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Delete failed"
+                                                                message:[errorOrNil localizedDescription]
+                                                               delegate:self
+                                                      cancelButtonTitle:@"Ok"
+                                                      otherButtonTitles:nil];
+                
+                [alert show];
+                
+            }
+
+        } withProgressBlock:nil];
+    }
 }
 @end
