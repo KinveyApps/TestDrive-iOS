@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2708A6EA17621A4F0042844D /* libUAirship-1.4.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2708A6E917621A4F0042844D /* libUAirship-1.4.0.a */; };
 		2734600416518D5A00CD66C5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2734600316518D5A00CD66C5 /* UIKit.framework */; };
 		2734600616518D5A00CD66C5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2734600516518D5A00CD66C5 /* Foundation.framework */; };
 		2734600816518D5A00CD66C5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2734600716518D5A00CD66C5 /* CoreGraphics.framework */; };
@@ -19,7 +20,6 @@
 		2734601D16518D5A00CD66C5 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2734601B16518D5A00CD66C5 /* MainStoryboard.storyboard */; };
 		2734602016518D5A00CD66C5 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2734601F16518D5A00CD66C5 /* ViewController.m */; };
 		273460281651904900CD66C5 /* TestObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 273460271651904900CD66C5 /* TestObject.m */; };
-		2734602A1651976900CD66C5 /* libUAirshipPush-1.3.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 273460291651976900CD66C5 /* libUAirshipPush-1.3.3.a */; };
 		2734602C1651977300CD66C5 /* KinveyKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2734602B1651977300CD66C5 /* KinveyKit.framework */; };
 		273460361651979D00CD66C5 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2734602D1651979D00CD66C5 /* Accounts.framework */; };
 		273460371651979D00CD66C5 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2734602E1651979D00CD66C5 /* CFNetwork.framework */; };
@@ -34,6 +34,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2708A6E917621A4F0042844D /* libUAirship-1.4.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libUAirship-1.4.0.a"; sourceTree = "<group>"; };
 		27345FFF16518D5A00CD66C5 /* Kinvey Test Drive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Kinvey Test Drive.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2734600316518D5A00CD66C5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2734600516518D5A00CD66C5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -52,7 +53,6 @@
 		2734601F16518D5A00CD66C5 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		273460261651904900CD66C5 /* TestObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestObject.h; sourceTree = "<group>"; };
 		273460271651904900CD66C5 /* TestObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestObject.m; sourceTree = "<group>"; };
-		273460291651976900CD66C5 /* libUAirshipPush-1.3.3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libUAirshipPush-1.3.3.a"; sourceTree = "<group>"; };
 		2734602B1651977300CD66C5 /* KinveyKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KinveyKit.framework; sourceTree = "<group>"; };
 		2734602D1651979D00CD66C5 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		2734602E1651979D00CD66C5 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -84,8 +84,8 @@
 				2734600416518D5A00CD66C5 /* UIKit.framework in Frameworks */,
 				2734600616518D5A00CD66C5 /* Foundation.framework in Frameworks */,
 				2734600816518D5A00CD66C5 /* CoreGraphics.framework in Frameworks */,
-				2734602A1651976900CD66C5 /* libUAirshipPush-1.3.3.a in Frameworks */,
 				2734602C1651977300CD66C5 /* KinveyKit.framework in Frameworks */,
+				2708A6EA17621A4F0042844D /* libUAirship-1.4.0.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -123,7 +123,7 @@
 				273460341651979D00CD66C5 /* SystemConfiguration.framework */,
 				273460351651979D00CD66C5 /* Twitter.framework */,
 				2734602B1651977300CD66C5 /* KinveyKit.framework */,
-				273460291651976900CD66C5 /* libUAirshipPush-1.3.3.a */,
+				2708A6E917621A4F0042844D /* libUAirship-1.4.0.a */,
 				2734600316518D5A00CD66C5 /* UIKit.framework */,
 				2734600516518D5A00CD66C5 /* Foundation.framework */,
 				2734600716518D5A00CD66C5 /* CoreGraphics.framework */,

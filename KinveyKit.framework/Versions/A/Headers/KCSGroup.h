@@ -2,7 +2,7 @@
 //  KCSGroup.h
 //  KinveyKit
 //
-//  Copyright (c) 2012 Kinvey, Inc. All rights reserved.
+//  Copyright (c) 2012-2013 Kinvey, Inc. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -10,15 +10,9 @@
 /**
  A KCSGroup is the object that wraps the response of a KCSStore's groupBy: call. 
  */
-@interface KCSGroup : NSObject{
-@private
-    NSArray* _array;
-    NSString* _key;
-    NSArray* _queriedFields;
-}
+@interface KCSGroup : NSObject
 
-
-- (id) initWithJsonArray:(NSArray*)jsonData valueKey:(NSString*)key queriedFields:(NSArray*)fields;
+- (instancetype) initWithJsonArray:(NSArray*)jsonData valueKey:(NSString*)key queriedFields:(NSArray*)fields;
 
 /**
  Returns the raw array. Each group will be represented by a dictionary in that array, where the keys are the fields that they are grouped by, plus one field for the return value. 
