@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2717F20B17A0583F0026D3CF /* libUAirship-1.4.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2717F20A17A0583F0026D3CF /* libUAirship-1.4.0.a */; };
 		2734600416518D5A00CD66C5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2734600316518D5A00CD66C5 /* UIKit.framework */; };
 		2734600616518D5A00CD66C5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2734600516518D5A00CD66C5 /* Foundation.framework */; };
 		2734600816518D5A00CD66C5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2734600716518D5A00CD66C5 /* CoreGraphics.framework */; };
@@ -34,7 +33,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2717F20A17A0583F0026D3CF /* libUAirship-1.4.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libUAirship-1.4.0.a"; path = "airship/libUAirship-1.4.0.a"; sourceTree = "<group>"; };
 		27345FFF16518D5A00CD66C5 /* Kinvey Test Drive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Kinvey Test Drive.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2734600316518D5A00CD66C5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2734600516518D5A00CD66C5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -84,7 +82,6 @@
 				2734603E1651979D00CD66C5 /* Twitter.framework in Frameworks */,
 				2734600416518D5A00CD66C5 /* UIKit.framework in Frameworks */,
 				2734600616518D5A00CD66C5 /* Foundation.framework in Frameworks */,
-				2717F20B17A0583F0026D3CF /* libUAirship-1.4.0.a in Frameworks */,
 				2734600816518D5A00CD66C5 /* CoreGraphics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -123,7 +120,6 @@
 				273460331651979D00CD66C5 /* Security.framework */,
 				273460341651979D00CD66C5 /* SystemConfiguration.framework */,
 				273460351651979D00CD66C5 /* Twitter.framework */,
-				2717F20A17A0583F0026D3CF /* libUAirship-1.4.0.a */,
 				2734600316518D5A00CD66C5 /* UIKit.framework */,
 				2734600516518D5A00CD66C5 /* Foundation.framework */,
 				2734600716518D5A00CD66C5 /* CoreGraphics.framework */,
@@ -322,7 +318,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
-					"$(SRCROOT)/airship",
 				);
 				PRODUCT_NAME = "Kinvey Test Drive";
 				WRAPPER_EXTENSION = app;
@@ -344,7 +339,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
-					"$(SRCROOT)/airship",
 				);
 				PRODUCT_NAME = "Kinvey Test Drive";
 				WRAPPER_EXTENSION = app;
