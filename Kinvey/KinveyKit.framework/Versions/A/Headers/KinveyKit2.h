@@ -20,17 +20,18 @@
 #ifndef KinveyKit_KinveyKit2_h
 #define KinveyKit_KinveyKit2_h
 
-#import "KinveyKit.h"
+#import "KinveyKit.h" //
+
+#import "KinveyVersion.h"
 
 #import "KinveyCore.h"
 
 #pragma mark - Data & Storage
 
-#import "KCSDataStore.h"
-#import "KCSQuery2.h"
+#import "KinveyDataStore.h"
 
 #pragma mark - Service
 
-#import "KCSRequest.h"
+#import "KCSRequest.h" //
 
 #endif
