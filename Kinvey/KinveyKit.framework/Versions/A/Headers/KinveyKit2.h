@@ -25,6 +25,11 @@
 
 #import "KinveyCore.h"
 
+#pragma mark - User & Device
+
+#import "KinveyUserService.h"
+#import "KCSPush2.h"
+
 #pragma mark - Data & Storage
 
 #import "KinveyDataStore.h"

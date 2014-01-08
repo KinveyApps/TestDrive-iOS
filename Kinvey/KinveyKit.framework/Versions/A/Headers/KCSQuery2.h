@@ -24,10 +24,13 @@ typedef enum KCSQueryErrors : NSInteger {
 
 @interface KCSQuery2 : NSObject
 
++ (instancetype) allQuery;
 + (instancetype) queryWithPredicate:(NSPredicate*)predicate error:(NSError**)error;
 + (instancetype) queryWithQuery1:(KCSQuery*)query;
 
-@property (nonatomic, copy) NSArray* sortDescriptors;
+@property (nonatomic, copy) NSArray* sortDescriptors; //of NSSortDescriptors
+@property (nonatomic) NSUInteger limit;
+@property (nonatomic) NSUInteger offset;
 
 - (NSString *)escapedQueryString;
 
