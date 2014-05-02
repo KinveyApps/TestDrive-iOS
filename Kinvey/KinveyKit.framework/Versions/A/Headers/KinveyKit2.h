@@ -2,7 +2,7 @@
 //  KinveyKit2.h
 //  KinveyKit
 //
-//  Copyright (c) 2013 Kinvey. All rights reserved.
+//  Copyright (c) 2013-2014 Kinvey. All rights reserved.
 //
 // This software is licensed to you under the Kinvey terms of service located at
 // http://www.kinvey.com/terms-of-use. By downloading, accessing and/or using this
@@ -35,8 +35,8 @@
 #import "KinveyDataStore.h"
 #import "KinveyFileStore.h"
 
-#pragma mark - Service
+#pragma mark - Location
 
-#import "KCSRequest.h" //
+#import "KinveyLocation.h"
 
 #endif

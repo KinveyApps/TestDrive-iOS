@@ -18,6 +18,7 @@
  
 #import <Foundation/Foundation.h>
 #import "KCSStore.h"
+#import "KCSBackgroundAppdataStore.h"
 
 @class KCSCollection;
 
@@ -51,7 +52,7 @@
  
  @see KCSCachedStore
  */
-@interface KCSAppdataStore : NSObject <KCSStore> 
+@interface KCSAppdataStore : KCSBackgroundAppdataStore
 
 @property (nonatomic, strong) KCSAuthHandler *authHandler KCS_DEPRECATED(Auth handler not used, 1.22.0);
 
