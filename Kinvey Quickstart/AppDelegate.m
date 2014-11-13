@@ -2,7 +2,7 @@
 //  AppDelegate.m
 //  Kinvey Quickstart
 //
-// Copyright 2013-2014 Kinvey, Inc.
+// Copyright 2012-2014 Kinvey, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -24,8 +24,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    (void) [[KCSClient sharedClient] initializeKinveyServiceForAppKey:@"<#My App Key#>"
-                                                        withAppSecret:@"<#My App Secret#>"
+    (void) [[KCSClient sharedClient] initializeKinveyServiceForAppKey:@"kid_byDPUx_r8"
+                                                        withAppSecret:@"0b345792a15b4d0b9a6a168be1c6aa27"
                                                          usingOptions:nil];
     return YES;
 }
