@@ -1,7 +1,7 @@
 TestDrive-iOS
 =============
 
-Test Drive Kinvey With This Simple App
+Test Drive Kinvey With This Simple App. You must add your own AppKey and AppSecret in the source code from the Kinvey Console.
 
 
 
