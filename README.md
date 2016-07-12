@@ -1,8 +1,12 @@
 TestDrive-iOS
 =============
 
-Test Drive Kinvey With This Simple App
+Barebones app demonstrating saving and loading data from Kinvey. Test Drive Kinvey With This Sample.
 
+## How to Use
+
+* Before compiling, replace `appKey` and `appSecret` in the `AppDelegate` with values you obtain from the [Kinvey console](https://console.kinvey.com). 
+* This sample is packaged with the Kinvey iOS SDK. It is recommended that you update the `KinveyKit` dependency in the sample to the latest version from the SDK [downloads page](http://devcenter.kinvey.com/ios/downloads), or using CocoaPods. Check the Kinvey [Getting Started guide](http://devcenter.kinvey.com/ios/guides/getting-started) for details.
 
 
 ## License
