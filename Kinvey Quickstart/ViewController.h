@@ -21,7 +21,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UITableViewController <UIAlertViewDelegate>
+@interface ViewController : UITableViewController
 - (IBAction)load:(id)sender;
 - (IBAction)add:(id)sender;
 

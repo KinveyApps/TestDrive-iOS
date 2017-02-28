@@ -33,61 +33,78 @@
 
 - (IBAction)add:(id)sender
 {
-    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Create a New Entity"
-                                                    message:@"Enter a title for the new entity"
-                                                   delegate:self
-                                          cancelButtonTitle:@"Cancel"
-                                          otherButtonTitles:@"Save", nil];
-    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-    alert.tag = CREATE_NEW_ENTITY_ALERT_VIEW;
-    [alert show];
+    UIAlertController* alertController = [UIAlertController alertControllerWithTitle:@"Create a New Entity"
+                                                                             message:@"Enter a title for the new entity"
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+    
+    __block UITextField* textField;
+    
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull _textField) {
+        textField = _textField;
+    }];
+    
+    UIAlertAction* saveAction = [UIAlertAction actionWithTitle:@"Save"
+                                                         style:UIAlertActionStyleDefault
+                                                       handler:^(UIAlertAction * _Nonnull action)
+    {
+        // Define an instance of our test object
+        TestObject *testObject = [[TestObject alloc] init];
+        
+        // This is the data we'll save
+        testObject.name = textField.text;
+        
+        // Create a data store connected to the collection, in order to save and load TestObjects
+        KinveyDataStoreTestObject* store = [[KinveyDataStoreTestObject alloc] init];
+        
+        // Save our instance to the store
+        [store save:testObject completionHandler:^(TestObject * _Nullable objectOrNil, NSError * _Nullable errorOrNil) {
+            // Right now just pop-up an alert about what we got back from Kinvey during
+            // the save.  Normally you would want to implement more code here
+            if (errorOrNil == nil && objectOrNil != nil) {
+                //save is successful!
+                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Save worked!"
+                                                                                         message:[NSString stringWithFormat:@"Saved: '%@'", objectOrNil.name]
+                                                                                  preferredStyle:UIAlertControllerStyleAlert];
+                
+                UIAlertAction* okAction = [UIAlertAction actionWithTitle:@"Ok"
+                                                                   style:UIAlertActionStyleDefault
+                                                                 handler:nil];
+                [alertController addAction:okAction];
+                
+                [self presentViewController:alertController
+                                   animated:YES
+                                 completion:nil];
+                
+                self.objects = [@[testObject] arrayByAddingObjectsFromArray:_objects];
+                [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+            } else {
+                //save failed
+                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Save failed"
+                                                                                         message:errorOrNil.localizedDescription
+                                                                                  preferredStyle:UIAlertControllerStyleAlert];
+                
+                UIAlertAction* okAction = [UIAlertAction actionWithTitle:@"Ok"
+                                                                   style:UIAlertActionStyleDefault
+                                                                 handler:nil];
+                [alertController addAction:okAction];
+                
+                [self presentViewController:alertController
+                                   animated:YES
+                                 completion:nil];
+            }
+        }];
+    }];
+    [alertController addAction:saveAction];
+    
+    UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:nil];
+    [alertController addAction:cancelAction];
+    
+    [self presentViewController:alertController
+                       animated:YES
+                     completion:nil];
 }
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (alertView.tag == CREATE_NEW_ENTITY_ALERT_VIEW) {
-        if (buttonIndex == alertView.firstOtherButtonIndex) {
-            // Define an instance of our test object
-            TestObject *testObject = [[TestObject alloc] init];
-            
-            // This is the data we'll save
-            testObject.name = [[alertView textFieldAtIndex:0] text];
-            
-            // Create a data store connected to the collection, in order to save and load TestObjects
-            KinveyDataStoreTestObject* store = [[KinveyDataStoreTestObject alloc] init];
-            
-            // Save our instance to the store
-            [store save:testObject completionHandler:^(TestObject * _Nullable objectOrNil, NSError * _Nullable errorOrNil) {
-                // Right now just pop-up an alert about what we got back from Kinvey during
-                // the save.  Normally you would want to implement more code here
-                if (errorOrNil == nil && objectOrNil != nil) {
-                    //save is successful!
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Save worked!"
-                                                                    message:[NSString stringWithFormat:@"Saved: '%@'",[objectOrNil name]]
-                                                                   delegate:nil
-                                                          cancelButtonTitle:@"Ok"
-                                                          otherButtonTitles:nil];
-                    
-                    [alert show];
-                    
-                    self.objects = [@[testObject] arrayByAddingObjectsFromArray:_objects];
-                    [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
-                } else {
-                    //save failed
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Save failed"
-                                                                    message:[errorOrNil localizedDescription]
-                                                                   delegate:self
-                                                          cancelButtonTitle:@"Ok"
-                                                          otherButtonTitles:nil];
-                    
-                    [alert show];
-                    
-                }
-            }];
-        }
-    }
-}
-
 
 - (IBAction)load:(id)sender
 {
@@ -108,14 +125,18 @@
             [self.tableView reloadData];
         } else {
             //load failed
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Load failed"
-                                                            message:[errorOrNil localizedDescription]
-                                                           delegate:self
-                                                  cancelButtonTitle:@"Ok"
-                                                  otherButtonTitles:nil];
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Load failed"
+                                                                                     message:errorOrNil.localizedDescription
+                                                                              preferredStyle:UIAlertControllerStyleAlert];
             
-            [alert show];
+            UIAlertAction* okAction = [UIAlertAction actionWithTitle:@"Ok"
+                                                               style:UIAlertActionStyleDefault
+                                                             handler:nil];
+            [alertController addAction:okAction];
             
+            [self presentViewController:alertController
+                               animated:YES
+                             completion:nil];
         }
     }];
 }
@@ -139,13 +160,18 @@
         [User signUpWithCompletionHandler:^(User * _Nullable user, NSError * _Nullable errorOrNil) {
             if (errorOrNil != nil) {
                 //load failed
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"User creation failed"
-                                                                message:[errorOrNil localizedDescription]
-                                                               delegate:self
-                                                      cancelButtonTitle:@"Ok"
-                                                      otherButtonTitles:nil];
+                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"User creation failed"
+                                                                                         message:errorOrNil.localizedDescription
+                                                                                  preferredStyle:UIAlertControllerStyleAlert];
                 
-                [alert show];
+                UIAlertAction* okAction = [UIAlertAction actionWithTitle:@"Ok"
+                                                                   style:UIAlertActionStyleDefault
+                                                                 handler:nil];
+                [alertController addAction:okAction];
+                
+                [self presentViewController:alertController
+                                   animated:YES
+                                 completion:nil];
             } else {
                 [self load:nil];
             }
@@ -202,25 +228,35 @@
         [store remove:objToDelete completionHandler:^(NSInteger count, NSError * _Nullable errorOrNil) {
             if (errorOrNil == nil) {
                 //delete is successful!
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Delete successful!"
-                                                                message:nil
-                                                               delegate:nil
-                                                      cancelButtonTitle:@"Ok"
-                                                      otherButtonTitles:nil];
+                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Delete successful!"
+                                                                                         message:errorOrNil.localizedDescription
+                                                                                  preferredStyle:UIAlertControllerStyleAlert];
                 
-                [alert show];
+                UIAlertAction* okAction = [UIAlertAction actionWithTitle:@"Ok"
+                                                                   style:UIAlertActionStyleDefault
+                                                                 handler:nil];
+                [alertController addAction:okAction];
+                
+                [self presentViewController:alertController
+                                   animated:YES
+                                 completion:nil];
             } else {
                 //delete failed
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Delete failed"
-                                                                message:[errorOrNil localizedDescription]
-                                                               delegate:self
-                                                      cancelButtonTitle:@"Ok"
-                                                      otherButtonTitles:nil];
+                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Delete failed"
+                                                                                         message:errorOrNil.localizedDescription
+                                                                                  preferredStyle:UIAlertControllerStyleAlert];
                 
-                [alert show];
+                UIAlertAction* okAction = [UIAlertAction actionWithTitle:@"Ok"
+                                                                   style:UIAlertActionStyleDefault
+                                                                 handler:nil];
+                [alertController addAction:okAction];
                 
+                [self presentViewController:alertController
+                                   animated:YES
+                                 completion:nil];
             }
         }];
     }
 }
+
 @end
