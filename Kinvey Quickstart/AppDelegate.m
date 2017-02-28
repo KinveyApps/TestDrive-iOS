@@ -18,15 +18,14 @@
 //
 
 #import "AppDelegate.h"
-#import <KinveyKit/KinveyKit.h>
+#import "Kinvey_Test_Drive-Swift.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    (void) [[KCSClient sharedClient] initializeKinveyServiceForAppKey:@"<#My App Key#>"
-                                                        withAppSecret:@"<#My App Secret#>"
-                                                         usingOptions:nil];
+    [[KinveyClient sharedClient]  initializeWithAppKey:@"<#My App Key#>"
+                                             appSecret:@"<#My App Secret#>"];
     return YES;
 }
 

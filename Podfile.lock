@@ -1,12 +1,45 @@
 PODS:
-  - KinveyKit (1.27.1)
+  - KeychainAccess (3.0.1)
+  - Kinvey (3.3.8):
+    - KeychainAccess (~> 3.0)
+    - ObjectMapper (~> 2.0)
+    - PromiseKit (~> 4.0)
+    - Realm (~> 2.0)
+    - RealmSwift (~> 2.0)
+    - XCGLogger (~> 4.0)
+  - ObjectMapper (2.2.2)
+  - PromiseKit (4.1.7):
+    - PromiseKit/Foundation (= 4.1.7)
+    - PromiseKit/QuartzCore (= 4.1.7)
+    - PromiseKit/UIKit (= 4.1.7)
+  - PromiseKit/CorePromise (4.1.7)
+  - PromiseKit/Foundation (4.1.7):
+    - PromiseKit/CorePromise
+  - PromiseKit/QuartzCore (4.1.7):
+    - PromiseKit/CorePromise
+  - PromiseKit/UIKit (4.1.7):
+    - PromiseKit/CorePromise
+  - Realm (2.4.2):
+    - Realm/Headers (= 2.4.2)
+  - Realm/Headers (2.4.2)
+  - RealmSwift (2.4.2):
+    - Realm (= 2.4.2)
+  - XCGLogger (4.0.0):
+    - XCGLogger/Core (= 4.0.0)
+  - XCGLogger/Core (4.0.0)
 
 DEPENDENCIES:
-  - KinveyKit
+  - Kinvey
 
 SPEC CHECKSUMS:
-  KinveyKit: b5434c19dfd1050e77d07d9b13ab2411cedd1c38
+  KeychainAccess: 017ea25e313a49eda10bb19b0bb0760fb1edfe1a
+  Kinvey: 077b694b3145cc7aeead8ccb7cf6fbba79528e2b
+  ObjectMapper: 9e385c2295bcc4e16eabbcfc85db801442bba545
+  PromiseKit: 779f2e41faf62d854e7593026ddbcb0bb5c5002d
+  Realm: d27b758e12d62a3371879a065d4c40aa212c5a54
+  RealmSwift: 9556c0fe0f0cfecacfb755ae9e68ff379fc6bead
+  XCGLogger: 38063ea89b4c8b23232d18efd2e12eb0005f3ea4
 
-PODFILE CHECKSUM: 2d309dc2e006866d9a4042024901c556027858f4
+PODFILE CHECKSUM: 078227789f08c3ffdd04b2c7a525193541d2f84d
 
 COCOAPODS: 1.2.0

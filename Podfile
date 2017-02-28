@@ -6,6 +6,6 @@ target 'Kinvey Test Drive' do
   use_frameworks!
 
   # Pods for Kinvey Test Drive
-  pod 'KinveyKit'
+  pod 'Kinvey'
 
 end
